@@ -40,7 +40,8 @@ class AuthController extends Controller
                 'password' => 'required|string|min:8|confirmed',
             ]);
             if ($validator->fails()) {
-                return ApiResponse::error('', $validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
+                $errorMsg = collect($validator->errors())->flatten()->join("\n");
+                return ApiResponse::error($errorMsg , $validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
             }
             $user = User::create([
                 'first_name' => $request->first_name,

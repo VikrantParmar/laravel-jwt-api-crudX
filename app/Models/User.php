@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject // Implement the interf
 
     // Specify which attributes should be hidden for arrays
     protected $hidden = [
-        'password', 'verification_code'
+        'password', 'verification_code','id','deleted_at','remember_token'
     ];
 
     // Specify whether the model should use timestamps
@@ -37,21 +37,9 @@ class User extends Authenticatable implements JWTSubject // Implement the interf
     protected $casts = [
       //  'status' => UserStatus::class, // Cast status field to Userstatus Enum
     ];
-    protected $appends = ['status_name', 'profile_image_url'];
+    protected $appends = ['full_name','status_name', 'profile_image_url'];
 
-    // Accessor for full name
-    public function getFullNameAttribute()
-    {
-        return ucwords($this->first_name . ' ' . $this->last_name);
-    }
 
-    // Mutator for password to ensure it's hashed before saving
-    public function setPasswordAttribute($value)
-    {
-        if (!empty($value)) {
-            $this->attributes['password'] = Hash::make($value);
-        }
-    }
     // Query scope to get non-deleted users
     public function scopeNotDeleted($query)
     {
@@ -61,6 +49,20 @@ class User extends Authenticatable implements JWTSubject // Implement the interf
     public function scopeGetAdminOnly($query)
     {
         return $query->where('role_id', 1);
+    }
+
+    // Mutator for password to ensure it's hashed before saving
+    public function setPasswordAttribute($value)
+    {
+        if (!empty($value)) {
+            $this->attributes['password'] = Hash::make($value);
+        }
+    }
+
+    // Accessor for full name
+    public function getFullNameAttribute()
+    {
+        return ucwords($this->first_name . ' ' . $this->last_name);
     }
 
     // Accessor for profile image URL
