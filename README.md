@@ -1,4 +1,4 @@
-# Laravel 10 JWT Authentication REST API 🚀
+# ![Laravel](https://img.shields.io/badge/Laravel-%23FF2D20.svg?style=flat&logo=laravel&logoColor=white) Laravel 10 JWT Authentication REST API 🚀
 
 This project is a backend application built with the PHP Laravel framework, MySQL, and JWT (JSON Web Tokens) authentication. It provides a robust REST API for managing user authentication, category, and blog features, with multi-language support for English (EN), French (FR), and German (DE). 
 
@@ -52,26 +52,33 @@ Follow these steps to set up the Laravel application:
    cd laravel-jwt-api-crudX
 
 2. **Install Dependencies**
-    composer install
+   ```bash
+   composer install
 
-3. **Create Environment File**
-    cp .env.example .env
-    - Update the .env file with your database credentials and email configuration.
+4. **Create Environment File**
+   ```bash
+   cp .env.example .env
+   - Update the .env file with your database credentials and email configuration.
 
-4. Generate Application Key
-    php artisan key:generate
+5. Generate Application Key
+   ```bash
+   php artisan key:generate
 
-5. Run Database Migrations
-    php artisan migrate
+6. Run Database Migrations
+   ```bash
+   php artisan migrate
 
-6. Run Seeders
-    php artisan db:seed
+7. Run Seeders
+   ```bash
+   php artisan db:seed
 
-7. Run the Application
-    php artisan serve
+8. Run the Application
+   ```bash
+   php artisan serve
 
-8. Access the Application Open your browser and navigate to http://127.0.0.1:8000
-
+9. Access the Application Open your browser and navigate to
+   ```bash
+   http://127.0.0.1:8000
 
 ## Default Credentials for Testing
 
@@ -83,7 +90,7 @@ Follow these steps to set up the Laravel application:
 
 
 ## 📋 API Documentation [<img src="https://voyager.postman.com/logo/postman-logo-icon-orange.svg" width="20" height="20" />](https://documenter.getpostman.com/view/39353609/2sAYJ7geHA)
-#### 🔗 Visit the Postman Docs for more details [Postman Docs]((https://documenter.getpostman.com/view/39353609/2sAYJ7geHA)
+#### 🔗 Visit the Postman Docs for more details [Postman Docs](https://documenter.getpostman.com/view/39353609/2sAYJ7geHA)
 
 ### Endpoints Overview
 
@@ -117,16 +124,15 @@ Set the `Accept-Language` header in your API requests to one of the following va
 - `fr` for French
 - `de` for German
 
-
-### Notes:
-- Include additional setup instructions if you use third-party services (e.g., mail providers or APIs).
-- Multi-Language for only api reponse msg like success and error.
+> [!NOTE]
+> Include additional setup instructions if you use third-party services (e.g., mail providers or APIs).  
+> Multi-Language for only api reponse msg like success and error.
 
 
 ### 🌎 Contact
 For questions, feedback, or collaboration inquiries, please contact:
 
-Name: Vikrant Parmar
+Name: Vikrant Parmar  
 Email: vikrant.parmar91@gmail.com
 
 

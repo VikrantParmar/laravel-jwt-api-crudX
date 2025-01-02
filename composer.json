@@ -1,10 +1,12 @@
 {
-    "name": "laravel/laravel",
+    "name": "vikrantp/laravel-jwt-api-crudX",
     "type": "project",
     "description": "Rest API Using The Laravel Framework.",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+        "api",
+        "rest"
     ],
     "license": "MIT",
     "require": {
@@ -65,8 +67,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "Instagram\\Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
