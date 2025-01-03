@@ -1,16 +1,17 @@
 <?php
 namespace App\Http\Controllers\Api\V1;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Responses\Api\ApiResponse;
 use Symfony\Component\HttpFoundation\Response;
-class CategoryController extends Controller
+class CategoryController extends ApiController
 {
     public function __construct()
     {
-        // Middleware can be applied here if needed
+        parent::__construct();
+
     }
     // Display a listing of categories
     public function index()

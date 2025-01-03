@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
@@ -12,11 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 use App\Services\FileUploadService;
 
-class BlogController extends Controller
+class BlogController extends ApiController
 {
     protected $fileUploadService;
     public function __construct(FileUploadService $fileUploadService)
     {
+        parent::__construct();
         // Middleware can be applied here if needed
         $this->fileUploadService = $fileUploadService;
     }

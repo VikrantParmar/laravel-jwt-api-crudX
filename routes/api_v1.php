@@ -19,6 +19,8 @@ Route::prefix('v1')->group(function () {
     Route::middleware('jwt.verify')->group(function () {
         // Profile route
         Route::get('profile', [ProfileController::class, 'getProfile']);
+        Route::post('profile', [ProfileController::class, 'updateProfile']);
+        Route::post('update-password', [ProfileController::class, 'updatePassword']);
         // Category CRUD routes (Admin only)
         Route::middleware('admin.role')->group(function () {
             Route::get('categories', [CategoryController::class, 'index']);
