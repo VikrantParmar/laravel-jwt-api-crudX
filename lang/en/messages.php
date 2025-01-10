@@ -12,7 +12,7 @@ return [
     'status_update_success' =>'Status updated successfully.',
     'status_update_failed' =>'Failed to update status.',
 
-    'database_error' => 'A database error occurred. Please try again later.',
+    'database_error' => "We're sorry, but there seems to be an issue with our system at the moment. Please try again later. If the problem persists, feel free to reach out to our support team. | CODE: DB_ERROR",
     'model_not_found' => 'The requested resource could not be found.',
     'validation_error' => 'There were validation errors.',
     'route_not_found' => 'The requested route could not be found.',

@@ -65,7 +65,7 @@ class Handler extends ExceptionHandler
             'request' => $request->all(),
         ]);
         // Define the HTTP status code
-        $errorCode = $exception->getCode() === 0 ? Response::HTTP_INTERNAL_SERVER_ERROR : $exception->getCode();
+        $errorCode = $exception->getCode() === 0 ? Response::HTTP_INTERNAL_SERVER_ERROR : (int) $exception->getCode();
         // Initialize errors variable
         $errors = [];
 

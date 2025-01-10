@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             \Database\Seeders\RolesTableSeeder::class,
             \Database\Seeders\UsersTableSeeder::class,
+            \Database\Seeders\CategoryTableSeeder::class
         ]);
     }
 }

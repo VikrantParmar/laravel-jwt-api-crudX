@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject // Implement the interf
 
     // Specify which attributes should be hidden for arrays
     protected $hidden = [
-        'password', 'verification_code','id','deleted_at','remember_token'
+        'password', 'verification_code','id','deleted_at','remember_token','role'
     ];
 
     // Specify whether the model should use timestamps
@@ -37,7 +37,7 @@ class User extends Authenticatable implements JWTSubject // Implement the interf
     protected $casts = [
       //  'status' => UserStatus::class, // Cast status field to Userstatus Enum
     ];
-    protected $appends = ['full_name','status_name', 'profile_image_url'];
+    protected $appends = ['full_name','status_name', 'profile_image_url','role_name'];
 
 
     // Query scope to get non-deleted users
@@ -84,6 +84,11 @@ class User extends Authenticatable implements JWTSubject // Implement the interf
         return $statuses[$this->status] ?? 'Unknown';
     }
 
+    public function getRoleNameAttribute()
+    {
+        return $this->role ? $this->role->role : '';
+    }
+
     // Implementing JWTSubject methods
     public function getJWTIdentifier()
     {
@@ -104,5 +109,10 @@ class User extends Authenticatable implements JWTSubject // Implement the interf
         static::creating(function ($user) {
             $user->unique_id = $user->unique_id ?: 'VXC' . \Str::padLeft(User::max('id') + 1, 3, '0');
         });
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }
