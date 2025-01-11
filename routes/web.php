@@ -24,4 +24,4 @@ Route::get('/', function () {
 // Catch all route for React
 Route::get('/{any}', function () {
     return view('welcome');
-})->where('any', '.*');
+})->where('any', '^(?!api).*');

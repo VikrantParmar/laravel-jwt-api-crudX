@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\BlogController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
+    Route::get('test', [AuthController::class, 'test']);
     // Public routes for guest users (cannot be accessed if the user is authenticated)
     Route::middleware('guest')->group(function () {
         Route::post('register', [AuthController::class, 'register']);

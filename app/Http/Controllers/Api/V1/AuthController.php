@@ -189,4 +189,12 @@ class AuthController extends Controller
             return ApiResponse::error(__('auth.msg.token_refresh_error'), [], Response::HTTP_UNAUTHORIZED);
         }
     }
+
+
+    public function test(Request $request)
+    {
+        return ApiResponse::success([
+            'mode' => "test"
+        ], 'This is testing api');
+    }
 }
