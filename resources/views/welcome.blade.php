@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel - {{config('app.name')}}</title>
+    <title>Laravel - {{ config('app.name') }}</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -12,10 +12,10 @@
     <!-- Styles -->
     <style>
         html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
+            background-color: #FAE3CF; /* Autumn White */
+            color: #0A0F24; /* Firmament Blue */
+            font-family: Roboto,Arial,sans-serif;
+            font-weight: bold;
             height: 100vh;
             margin: 0;
         }
@@ -46,16 +46,21 @@
 
         .title {
             font-size: 84px;
+            color: #0A0F24; /* Firmament Blue */
         }
 
         .links > a {
-            color: #636b6f;
+            color: #0A0F24; /* Firmament Blue */
             padding: 0 25px;
             font-size: 13px;
             font-weight: 600;
             letter-spacing: .1rem;
             text-decoration: none;
             text-transform: uppercase;
+        }
+
+        .links > a:hover {
+            color: #FAE3CF; /* Autumn White */
         }
 
         .m-b-md {
@@ -81,18 +86,9 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Laravel {{config('app.name')}}
+            Laravel {{ config('app.name') }}
         </div>
-        <div class="links">
-            <a href="https://laravel.com/docs">Docs</a>
-            <a href="https://laracasts.com">Laracasts</a>
-            <a href="https://laravel-news.com">News</a>
-            <a href="https://blog.laravel.com">Blog</a>
-            <a href="https://nova.laravel.com">Nova</a>
-            <a href="https://forge.laravel.com">Forge</a>
-            <a href="https://vapor.laravel.com">Vapor</a>
-            <a href="https://github.com/laravel/laravel">GitHub</a>
-        </div>
+
     </div>
 </div>
 </body>
