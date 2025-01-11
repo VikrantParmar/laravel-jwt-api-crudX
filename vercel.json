@@ -13,7 +13,7 @@
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "true",
-    "APP_URL": "https://laravel-jwt-api-crud-h31qdigwk-vikrant-x-code.vercel.app",
+    "APP_URL": "https://laravel-jwt-api-crud-x.vercel.app",
     "APP_KEY": "base64:ahnIqLdqvRAj3RMvxbl7mrTsYid+LJ3UNAdXx/BkLgM=",
 
     "APP_CONFIG_CACHE": "/tmp/config.php",
