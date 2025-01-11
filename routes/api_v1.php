@@ -16,6 +16,7 @@ Route::prefix('v1')->group(function () {
     });
     //Route::post('refresh', [AuthController::class, 'refreshToken']);
     Route::post('refresh-token', [AuthController::class, 'refreshToken'])->middleware('jwt.refresh');
+    Route::get('blogs', [BlogController::class, 'index']);
 
     // Protected routes (require JWT token) //'jwt.verify',
     Route::middleware('jwt.verify')->group(function () {
@@ -24,6 +25,7 @@ Route::prefix('v1')->group(function () {
         Route::post('profile', [ProfileController::class, 'updateProfile']);
         Route::post('update-password', [ProfileController::class, 'updatePassword']);
         // Category CRUD routes (Admin only)
+        Route::get('categories/all', [CategoryController::class, 'allCategory']);
         Route::middleware('admin.role')->group(function () {
             Route::get('categories', [CategoryController::class, 'index']);
             Route::post('categories', [CategoryController::class, 'store']);
@@ -31,8 +33,11 @@ Route::prefix('v1')->group(function () {
             Route::put('categories/{id}', [CategoryController::class, 'update']);
             Route::delete('categories/{id}', [CategoryController::class, 'destroy']);
         });
+
         #Blog CRUD Routs [All Authenticated Users]
-        //Route::apiResource('blogs', BlogController::class);
+        Route::get('blogs/my', [BlogController::class, 'myBlog']);
+        Route::apiResource('blogs', BlogController::class);
+
     });
-    Route::get('blogs', [BlogController::class, 'index']);
+
 });

@@ -97,12 +97,26 @@ class CategoryController extends ApiController
     // Soft delete the specified record
     public function destroy($id)
     {
-
         $record = Category::findOrFail($id);
         if (!$record) {
             return ApiResponse::error(__('messages.record_not_found'), [], Response::HTTP_NOT_FOUND);
         }
         $record->delete();
         return ApiResponse::success([], __('messages.record_deleted_successfully'));
+    }
+
+    public function allCategory(Request $request)
+    {
+        $data = Category::whereNull('deleted_at')->where('id',"<",10)
+        ->distinct()
+        ->get();
+        return ApiResponse::success([
+            'list' => $data,
+            'pagination' => [
+                'totalPages' => 0,
+                'currentPage' => 1,
+                'totalItems' => 0,
+            ]
+        ]);
     }
 }

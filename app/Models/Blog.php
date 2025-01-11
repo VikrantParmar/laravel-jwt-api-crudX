@@ -8,7 +8,7 @@ class Blog extends Model
 {
     use HasFactory;
     const DEFAULT_IMAGE = '100_no_img.jpg';
-    protected $fillable = ['title', 'content', 'category_id', 'slug', 'image'];
+    protected $fillable = ['title', 'content', 'category_id', 'slug', 'image','user_id'];
 
     protected $appends = ['blog_image_url','formatted_created_at'];
 

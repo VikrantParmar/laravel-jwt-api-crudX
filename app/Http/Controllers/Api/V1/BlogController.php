@@ -35,7 +35,63 @@ class BlogController extends ApiController
 
         // Query with dynamic filters and sorting
         $query = Blog::with('category');
+           // If the user is not an admin, filter blogs only of admin
+        $query->where('user_id', 1);
+        // Apply filters dynamically
+        if (is_array($filters) && count($filters) > 0) {
+            foreach ($filters as $field => $option) {
+                if (!empty($option) && $option['value'] != '') {
+                    // Apply the filter using LIKE
+                    $query->where($option['id'], 'like', "%{$option['value']}%");
+                }
+            }
+        }
+        // Apply sorting dynamically
+        if (is_array($sorting) && count($sorting) > 0) {
+            foreach ($sorting as $sort) {
+                $sortField = $sort['id'] ?? $defaultSortField;
+                $sortOrder = $sort['desc'] == "true" ? 'desc' : 'asc';
+                if (in_array($sortField, ['title', 'created_at', 'id']) && in_array(strtolower($sortOrder), ['asc', 'desc'])) {
+                    $query->orderBy($sortField, $sortOrder);
+                }
+            }
+        } else {
+            // Default sorting
+            $query->orderBy($defaultSortField, $defaultSortOrder);
+        }
 
+        // Paginate the result // 'pageIndex' as the page parameter name
+        $data = $query->paginate($pageSize, ['*'], 'pageIndex', $page + 1);
+        #dd($query->toSql(), $query->getBindings());
+        // Return response with pagination metadata
+        return ApiResponse::success([
+            'list' => $data->items(),
+            'pagination' => [
+                'totalPages' => $data->lastPage(),
+                'currentPage' => $data->currentPage(),
+                'totalItems' => $data->total(),
+            ]
+        ]);
+    }
+    public function myBlog(Request $request)
+    {
+        // Get pagination parameters
+        $page = $request->input('pageIndex', 1);
+        $pageSize = $request->input('pageSize', 10);
+        // Get sorting parameters
+        $sorting = $request->input('sorting', []);
+        $defaultSortField = 'id';
+        $defaultSortOrder = 'desc';
+        $filters = $request->input('filters', []);
+
+        $user = auth()->user();
+        // Query with dynamic filters and sorting
+        $query = Blog::with('category');
+
+        if (!$user || $user->role_id !== 1) {
+            // If the user is not an admin, filter blogs by user_id
+            $query->where('user_id', $user->id);
+        }
         // Apply filters dynamically
         if (is_array($filters) && count($filters) > 0) {
             foreach ($filters as $field => $option) {
@@ -83,11 +139,13 @@ class BlogController extends ApiController
             $imageData = $this->fileUploadService->handleImageUpload($request,'image', 'blog');
             #$imageName = $this->handleImageUpload($request);
         }
+        $user = auth()->user();
         $slug = $this->generateUniqueSlug($validated['title']);
         $recordAdd = Blog::create([
             'title' => $validated['title'],
             'content' => $validated['content'],
             'category_id' => $validated['category_id'],
+            'user_id' => $user->id,
             'slug' => $slug,
             'image' => $imageData ? $imageData['file_path'] : null,
         ]);
