@@ -35,8 +35,17 @@ Route::prefix('v1')->group(function () {
         });
 
         #Blog CRUD Routs [All Authenticated Users]
+      #  Route::apiResource('blogs', BlogController::class);
         Route::get('blogs/my', [BlogController::class, 'myBlog']);
-        Route::apiResource('blogs', BlogController::class);
+        Route::get('blogs/{id}', [BlogController::class, 'show']); // Get a specific blog
+        // Create a new blog
+        Route::post('blogs', [BlogController::class, 'store']); // Create blog
+        // Update an existing blog
+        Route::put('blogs/{id}', [BlogController::class, 'update']); // Update blog
+        // Delete a blog
+        Route::delete('blogs/{id}', [BlogController::class, 'destroy']); // Delete blog
+        // Blog route for authenticated users (e.g., their own blogs)
+
 
     });
 
