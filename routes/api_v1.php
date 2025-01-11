@@ -14,7 +14,9 @@ Route::prefix('v1')->group(function () {
         Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
         Route::post('reset-password', [AuthController::class, 'resetPassword']);
     });
-    Route::post('refresh', [AuthController::class, 'refreshToken']);
+    //Route::post('refresh', [AuthController::class, 'refreshToken']);
+    Route::post('refresh-token', [AuthController::class, 'refreshToken'])->middleware('jwt.refresh');
+
     // Protected routes (require JWT token) //'jwt.verify',
     Route::middleware('jwt.verify')->group(function () {
         // Profile route
@@ -30,7 +32,7 @@ Route::prefix('v1')->group(function () {
             Route::delete('categories/{id}', [CategoryController::class, 'destroy']);
         });
         #Blog CRUD Routs [All Authenticated Users]
-        Route::apiResource('blogs', BlogController::class);
-
+        //Route::apiResource('blogs', BlogController::class);
     });
+    Route::get('blogs', [BlogController::class, 'index']);
 });

@@ -15,6 +15,7 @@ class JwtMiddleware
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
+            auth()->setUser($user);
         } catch (TokenExpiredException $e) {
             return response()->json([
                 'status' => false,

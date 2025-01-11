@@ -21,7 +21,7 @@ class ApiController extends Controller
         }
     }
     public function tokenData(){
-        $this->user = JWTAuth::parseToken()->authenticate();
-        $this->test = 'This is test';
+        $this->user = auth()->user();
+        #$this->test = 'This is test';
     }
 }

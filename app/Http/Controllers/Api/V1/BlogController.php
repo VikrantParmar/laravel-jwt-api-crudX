@@ -22,12 +22,54 @@ class BlogController extends ApiController
         $this->fileUploadService = $fileUploadService;
     }
 
-    // Display a listing of categories
-    public function index()
+    public function index(Request $request)
     {
-        $data = Blog::with('category')->get();
+        // Get pagination parameters
+        $page = $request->input('pageIndex', 1);
+        $pageSize = $request->input('pageSize', 10);
+        // Get sorting parameters
+        $sorting = $request->input('sorting', []);
+        $defaultSortField = 'id';
+        $defaultSortOrder = 'desc';
+        $filters = $request->input('filters', []);
+
+        // Query with dynamic filters and sorting
+        $query = Blog::with('category');
+
+        // Apply filters dynamically
+        if (is_array($filters) && count($filters) > 0) {
+            foreach ($filters as $field => $option) {
+                if (!empty($option) && $option['value'] != '') {
+                    // Apply the filter using LIKE
+                    $query->where($option['id'], 'like', "%{$option['value']}%");
+                }
+            }
+        }
+        // Apply sorting dynamically
+        if (is_array($sorting) && count($sorting) > 0) {
+            foreach ($sorting as $sort) {
+                $sortField = $sort['id'] ?? $defaultSortField;
+                $sortOrder = $sort['desc'] == "true" ? 'desc' : 'asc';
+                if (in_array($sortField, ['title', 'created_at', 'id']) && in_array(strtolower($sortOrder), ['asc', 'desc'])) {
+                    $query->orderBy($sortField, $sortOrder);
+                }
+            }
+        } else {
+            // Default sorting
+            $query->orderBy($defaultSortField, $defaultSortOrder);
+        }
+
+        // Paginate the result // 'pageIndex' as the page parameter name
+        $data = $query->paginate($pageSize, ['*'], 'pageIndex', $page + 1);
+        #dd($query->toSql(), $query->getBindings());
+        // Return response with pagination metadata
         return ApiResponse::success([
-            'list' => $data
+            'list' => $data->items(),
+            'pagination' => [
+                'totalPages' => $data->lastPage(),
+                'currentPage' => $data->currentPage(),
+                'totalItems' => $data->total(),
+            ]
         ]);
     }
 
@@ -124,35 +166,4 @@ class BlogController extends ApiController
         }
         return $slug;
     }
-
-    /* private function handleImageUpload(Request $request)
-     {
-         if ($request->hasFile('image')) {
-             $image = $request->file('image');
-             $uploadResult = FileUploadHelper::uploadSingleFile($image, 'blog', '');
-             if ($uploadResult === null) {
-                 throw new \Exception(__('messages.file_upload_failed'));
-             }
-             return $uploadResult['file_path'];
-         }
-         return null;
-     }
-
-     private function handleImageUpdate(Request $request, Blog $record)
-     {
-         $imageName = $record->image;
-
-         if ($request->hasFile('image')) {
-             $image = $request->file('image');
-             $uploadResult = FileUploadHelper::uploadSingleFile($image, 'blog', '');
-             if ($uploadResult === null) {
-                 throw new \Exception(__('messages.file_upload_failed'));
-             }
-             if ($record->image) {
-                 Storage::disk('image')->delete($record->image);
-             }
-             $imageName = $uploadResult['file_path'];
-         }
-         return $imageName;
-     }*/
 }

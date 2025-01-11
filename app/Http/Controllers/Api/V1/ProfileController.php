@@ -34,7 +34,7 @@ class ProfileController extends ApiController
     public function updateProfile(UpdateProfileRequest $request)
     {
         try {
-            $user = $this->user;
+            $user = auth()->user();
             $user->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -55,7 +55,7 @@ class ProfileController extends ApiController
     public function updatePassword(UpdatePasswordRequest $request)
     {
         try {
-            $user = JWTAuth::parseToken()->authenticate();
+            $user = auth()->user();
             // Check if the current password matches
             if (!\Hash::check($request->current_password, $user->password)) {
                 return ApiResponse::error(__('auth.msg.current_password_invalid'), [], Response::HTTP_UNPROCESSABLE_ENTITY);
