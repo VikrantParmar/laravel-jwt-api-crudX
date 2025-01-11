@@ -46,7 +46,7 @@ TODO-List.txt
 
 # Maven
 target/
-dist/
+#dist/
 
 # JetBrains IDE
 .idea/
