@@ -86,6 +86,7 @@ Follow these steps to set up the Laravel application:
 |------------|-----------------------------------|----------------|
 | **Admin**  | vikrant-admin@example.com         | 123456789      |
 | **User**   | vikrant-user@example.com          | 123456789      |
+| **User-Inactive**   | vikrant-inactive@example.com          | 123456789      |
 
 
 
