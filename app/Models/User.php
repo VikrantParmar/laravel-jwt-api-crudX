@@ -69,9 +69,9 @@ class User extends Authenticatable implements JWTSubject // Implement the interf
     public function getProfileImageUrlAttribute()
     {
         // Get default image URL
-        $default = \Storage::disk('default')->url(self::DEFAULT_IMAGE);
+        $default = self::DEFAULT_IMAGE;//\Storage::disk('default')->url(self::DEFAULT_IMAGE);
         // Check if profile image is set, otherwise use the default
-        $profileImage = $this->profile_image ? \Storage::disk('user')->url($this->profile_image) : $default;
+        $profileImage = $this->profile_image ;//? \Storage::disk('user')->url($this->profile_image) : $default;
         return (object)[
             'original' => $profileImage,
             'default' => $default

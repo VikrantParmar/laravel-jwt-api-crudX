@@ -19,10 +19,10 @@ class Blog extends Model
 
     public function getBlogImageUrlAttribute()
     {
-        $default = \Storage::disk('default')->url(self::DEFAULT_IMAGE);
-        $profileImage = filter_var($this->image, FILTER_VALIDATE_URL)
+        $default = self::DEFAULT_IMAGE;//\Storage::disk('default')->url(self::DEFAULT_IMAGE);
+        $profileImage = $this->image ;/* filter_var($this->image, FILTER_VALIDATE_URL)
             ? $this->image
-            : ($this->image ? \Storage::disk('blog')->url($this->image) : $default);
+            : ($this->image ? \Storage::disk('blog')->url($this->image) : $default); */
         return (object)[
             'original' => $profileImage,
             'default' => $default
